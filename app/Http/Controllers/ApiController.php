@@ -3,13 +3,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\NewJob;
+use App\Jobs\StoreAlTaGe;
 use App\Jobs\StoreTracks;
-use App\Services\CacheService;
 use GuzzleHttp\Promise;
 use App\Models\Album;
 use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class ApiController extends Controller
@@ -47,7 +45,7 @@ class ApiController extends Controller
                 $item = json_decode($response->getBody()->getContents(), true);
                 $chunks = array_chunk($item[$key], 10);
                 foreach ($chunks as $chunk) {
-                    dispatch(new NewJob($chunk, $key));
+                    dispatch(new StoreAlTaGe($chunk, $key));
                 }
             }
         }
